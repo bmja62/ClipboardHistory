@@ -1,28 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ClipboardHistory
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            InitTimer();
+
+        }
+
+        private void InitTimer()
+        {
+            var timer = new System.Timers.Timer
+            {
+                Interval = 1000,
+                Enabled = true
+            };
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Thread thread = new Thread(GetClipboardData);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+        }
+
+        private string lastText;
+        private void GetClipboardData()
+        {
+            if (Clipboard.ContainsText())
+            {
+                var cliptext = Clipboard.GetText(TextDataFormat.Text);
+                if (cliptext != lastText)
+                {
+                    lastText = cliptext;
+
+                    Dispatcher.Invoke(() =>
+                    {
+                        TextBox1.Text += Environment.NewLine + cliptext;
+                    });
+                }
+            }
         }
     }
 }
