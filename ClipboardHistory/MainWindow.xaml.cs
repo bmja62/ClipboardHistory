@@ -50,5 +50,24 @@ namespace ClipboardHistory
                 }
             }
         }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            
+
+        }
+
+
+        bool StartupRun = true;
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (StartupRun)
+            {
+                this.WindowState = WindowState.Minimized;
+                this.ShowInTaskbar = true;
+                StartupRun = true;
+            }
+
+        }
     }
 }
