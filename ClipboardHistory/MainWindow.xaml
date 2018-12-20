@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClipboardHistory"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"  Loaded="Window_Loaded" StateChanged="Window_StateChanged">
+        Title="Clipboard History" Icon="toad.ico" Height="450" Width="800"  Loaded="Window_Loaded" StateChanged="Window_StateChanged">
     <Grid>
-        <TextBox  AcceptsReturn="True" FontSize="25" VerticalScrollBarVisibility="Visible" TextWrapping="NoWrap" Name="TextBox1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-
+        <TextBox  IsReadOnly="True" AcceptsReturn="True" FontSize="20" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" TextWrapping="NoWrap" Name="TextBox1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <tb:TaskbarIcon IconSource="toad.ico" ToolTipText="Clipboard History" TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick" />
     </Grid>
 </Window>

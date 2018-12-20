@@ -11,7 +11,6 @@ namespace ClipboardHistory
         {
             InitializeComponent();
             InitTimer();
-
         }
 
         private void InitTimer()
@@ -45,29 +44,40 @@ namespace ClipboardHistory
 
                     Dispatcher.Invoke(() =>
                     {
-                        TextBox1.Text += Environment.NewLine + cliptext;
+                        TextBox1.Text += "-----------------------------------------------------------------------------------------------------" + Environment.NewLine;
+                        TextBox1.Text += cliptext + Environment.NewLine;
+                        TextBox1.ScrollToEnd();
                     });
                 }
             }
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            
-
-        }
-
-
-        bool StartupRun = true;
+        private bool StartupRun = true;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (StartupRun)
             {
-                this.WindowState = WindowState.Minimized;
-                this.ShowInTaskbar = true;
-                StartupRun = true;
+                WindowState = WindowState.Minimized;
+                StartupRun = false;
             }
 
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+            }
+            else
+            {
+                ShowInTaskbar = true;
+            }
+        }
+
+        private void TaskbarIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Normal;
         }
     }
 }
