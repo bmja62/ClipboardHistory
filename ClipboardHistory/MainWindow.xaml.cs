@@ -44,7 +44,7 @@ namespace ClipboardHistory
 
                     Dispatcher.Invoke(() =>
                     {
-                        TextBox1.Text += "-----------------------------------------------------------------------------------------------------" + Environment.NewLine;
+                        TextBox1.Text += "------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine;
                         TextBox1.Text += cliptext + Environment.NewLine;
                         TextBox1.ScrollToEnd();
                     });
